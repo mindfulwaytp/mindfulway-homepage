@@ -207,8 +207,6 @@ const Providers = () => {
               <p className="insurance-label">
                 <strong>Insurance:</strong> {t.insurance.join(', ')}
               </p>
-
-              <a href="#" className="provider-link">Provider Details →</a>
             </div>
           </div>
         ))}
