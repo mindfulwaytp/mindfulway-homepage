@@ -8,42 +8,64 @@ const allTherapists = [
   {
     name: 'Ryne Evans',
     license: 'LMFT',
-    pronouns: 'he/they',
-    specialties: ['ADHD', 'Autism', 'LGBTQ+', 'Polyamory', 'Teens','PTSD'],
-    insurance: ['Aetna', 'Cigna', 'Regence','Premera'],
+    pronouns: 'he/him',
+    specialties: ['ADHD', 'Anxiety', 'Autism', 'Childhood Trauma', 'Depression', 'LGBTQ+ Identities', 'Polyamory', 'Relaionships', 'Sexuality', 'Trauma'],
+    insurance: ['Aetna', 'BCBS', 'Cigna', 'Molina-Medicaid', 'Molina-Commercial', 'Premera', 'Private Pay', 'Regence', 'UHC-Medicaid', 'UHC-Commercial'],
     location: ['Telehealth', 'U-District'],
-    services: ['Individual', 'Assessments', 'Couples', 'Family Therapy'],
+    services: ['Assessments Only'],
     gender: ['Male'],
     acceptingClients: true,
     image: exampleImg,
-    bio: 'Ryne specializes in working with neurodivergent teens and adults, LGBTQ+ clients, and complex relationship dynamics.',
-  },
-  {
-    name: 'Jordan Lee',
-    license: 'LICSW',
-    pronouns: 'they/them',
-    specialties: ['Autism', 'Gender Identity', 'EMDR'],
-    insurance: ['Aetna', 'Private Pay'],
-    location: ['Telehealth'],
-    services: ['Individual'],
-    gender: ['Female'],
-    acceptingClients: false,
-    image: exampleImg,
-    bio: 'Jordan creates a trauma-informed space for healing, with a focus on identity, empowerment, and somatic awareness.',
   },
 {
     name: 'McCall Evans',
     license: 'LMHCA',
     pronouns: 'he/him',
-    specialties: ['Autism', 'PTSD', 'EMDR'],
-    insurance: ['Cigna', 'Private Pay', 'Regence'],
+    specialties: ['ADHD', 'Anxiety', 'Autism', 'Depression', 'LGBTQ+ Identities', 'Parenting Support', 'PTSD', 'School Avoidance', 'Teens'],
+    insurance: ['Aetna', 'BCBS', 'Cigna', 'Molina-Medicaid', 'Molina-Commercial', 'Premera', 'Private Pay', 'Regence'],
     location: ['Telehealth', 'U-District'],
     services: ['Individual'],
     gender: ['Male'],
     acceptingClients: true,
     image: exampleImg,
-    bio: 'Jordan creates a trauma-informed space for healing, with a focus on identity, empowerment, and somatic awareness.',
   },
+{
+    name: 'Chandra Lindeman',
+    license: 'LMHC',
+    pronouns: 'she/her',
+    specialties: ['ADHD', 'Anxiety,', 'Autism', 'Chronic Illness', 'Depression', 'LGBTQ+ Identities', 'Life Transitions', 'PTSD', 'Parenting', 'Relationships'],
+    insurance: ['Aetna', 'BCBS', 'Cigna', 'Molina-Medicaid', 'Molina-Commercial', 'Premera', 'Private Pay', 'Regence'],
+    location: ['Telehealth'],
+    services: ['Individual'],
+    gender: ['Female'],
+    acceptingClients: false,
+    image: exampleImg,
+  },
+{
+    name: 'Cheryl Snider',
+    license: 'LSWAIC',
+    pronouns: 'she/her',
+    specialties: ['ADHD', 'Anxiety,', 'Autism', 'Chronic Illness', 'Depression', 'LGBTQ+ Identities', 'Life Transitions', 'PTSD', 'Parenting', 'Relationships'],
+    insurance: ['Aetna', 'BCBS', 'Cigna', 'Molina-Medicaid', 'Premera', 'Private Pay', 'Regence'],
+    location: ['Telehealth'],
+    services: ['Individual', 'Couples'],
+    gender: ['Female'],
+    acceptingClients: true,
+    image: exampleImg,
+  },
+{
+    name: 'Paige Butkey',
+    license: 'LMFTA',
+    pronouns: 'she/her',
+    specialties: ['ADHD', 'Anxiety,', 'Autism', 'Depression', 'LGBTQ+ Identities', 'Life Transitions', 'PTSD', 'Parenting', 'Relationships'],
+    insurance: ['Aetna', 'BCBS', 'Cigna', 'Molina-Medicaid', 'Premera', 'Private Pay', 'Regence'],
+    location: ['Telehealth'],
+    services: ['Individual', 'Couples', 'Family'],
+    gender: ['Female'],
+    acceptingClients: true,
+    image: exampleImg,
+  },
+
 ];
 
 // -------------------- DROPDOWN OPTIONS --------------------
@@ -98,6 +120,7 @@ const Providers = () => {
   return (
     <div className="providers-page">
       <h1>Meet Our Providers</h1>
+      <h3>Use the search functions below to find a provider</h3>
 
       {/* Search Input */}
       <input
@@ -186,8 +209,9 @@ const Providers = () => {
 
             <div className="card-right">
               <h2 className="provider-name">{t.name}</h2>
-              <p className="provider-license">{t.license || 'LMFT'}</p>
               <p className="pronouns">{t.pronouns}</p>
+              <p className="provider-license">{t.license || 'LMFT'}</p>
+              <p className="location">{t.location.join(', ')}</p>
 
               <p className="clients">
                 <span className="icon" style={{ color: t.acceptingClients ? 'green' : 'crimson' }}>
@@ -201,8 +225,6 @@ const Providers = () => {
                   <li key={j}><span className="dot" /> {tag}</li>
                 ))}
               </ul>
-
-              <p className="provider-bio">{t.bio}</p>
 
               <p className="insurance-label">
                 <strong>Insurance:</strong> {t.insurance.join(', ')}
