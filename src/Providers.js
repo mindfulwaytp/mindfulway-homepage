@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import Select from 'react-select';
 import './Providers.css';
 import exampleImg from './assets/provider-example.avif'; // Replace with actual image paths
+import { FaCalendarCheck, FaCalendarTimes} from 'react-icons/fa';
+import { TbReportSearch } from 'react-icons/tb';
 
 // Moved ABOVE the component
 const allTherapists = [
@@ -10,11 +12,12 @@ const allTherapists = [
     license: 'LMFT',
     pronouns: 'he/him',
     specialties: ['ADHD', 'Anxiety', 'Autism', 'Childhood Trauma', 'Depression', 'LGBTQ+ Identities', 'Polyamory', 'Relaionships', 'Sexuality', 'Trauma'],
+    topSpecialties:['ADHD', 'Autism', 'LGBTQ+ Identities', 'Polyamory', 'Assessments'],
     insurance: ['Aetna', 'BCBS', 'Cigna', 'Molina-Medicaid', 'Molina-Commercial', 'Premera', 'Private Pay', 'Regence', 'UHC-Medicaid', 'UHC-Commercial'],
     location: ['Telehealth', 'U-District'],
-    services: ['Assessments Only'],
+    services: ['Assessments', 'Indvidual', 'Couples', 'Family'],
     gender: ['Male'],
-    acceptingClients: true,
+    acceptingClients: 'assessments Only',
     image: exampleImg,
   },
 {
@@ -22,11 +25,12 @@ const allTherapists = [
     license: 'LMHCA',
     pronouns: 'he/him',
     specialties: ['ADHD', 'Anxiety', 'Autism', 'Depression', 'LGBTQ+ Identities', 'Parenting Support', 'PTSD', 'School Avoidance', 'Teens'],
+    topSpecialties:['ADHD', 'Autism', 'LGBTQ+ Identities', 'Teens'],
     insurance: ['Aetna', 'BCBS', 'Cigna', 'Molina-Medicaid', 'Molina-Commercial', 'Premera', 'Private Pay', 'Regence'],
     location: ['Telehealth', 'U-District'],
     services: ['Individual'],
     gender: ['Male'],
-    acceptingClients: true,
+    acceptingClients: 'yes',
     image: exampleImg,
   },
 {
@@ -34,11 +38,12 @@ const allTherapists = [
     license: 'LMHC',
     pronouns: 'she/her',
     specialties: ['ADHD', 'Anxiety,', 'Autism', 'Chronic Illness', 'Depression', 'LGBTQ+ Identities', 'Life Transitions', 'PTSD', 'Parenting', 'Relationships'],
+    topSpecialties:['ADHD', 'Chronic Illness', 'LGBTQ+ Identities', 'Parenting'],
     insurance: ['Aetna', 'BCBS', 'Cigna', 'Molina-Medicaid', 'Molina-Commercial', 'Premera', 'Private Pay', 'Regence'],
     location: ['Telehealth'],
     services: ['Individual'],
     gender: ['Female'],
-    acceptingClients: false,
+    acceptingClients: 'no',
     image: exampleImg,
   },
 {
@@ -46,23 +51,25 @@ const allTherapists = [
     license: 'LSWAIC',
     pronouns: 'she/her',
     specialties: ['ADHD', 'Anxiety,', 'Autism', 'Chronic Illness', 'Depression', 'LGBTQ+ Identities', 'Life Transitions', 'PTSD', 'Parenting', 'Relationships'],
+    topSpecialties:['ADHD', 'Autism', 'LGBTQ+ Identities', 'Polyamory', 'Couples'],
     insurance: ['Aetna', 'BCBS', 'Cigna', 'Molina-Medicaid', 'Premera', 'Private Pay', 'Regence'],
     location: ['Telehealth'],
     services: ['Individual', 'Couples'],
     gender: ['Female'],
-    acceptingClients: true,
+    acceptingClients: 'yes',
     image: exampleImg,
   },
 {
     name: 'Paige Butkey',
     license: 'LMFTA',
     pronouns: 'she/her',
-    specialties: ['ADHD', 'Anxiety,', 'Autism', 'Depression', 'LGBTQ+ Identities', 'Life Transitions', 'PTSD', 'Parenting', 'Relationships'],
+    specialties: ['ADHD', 'Anxiety,', 'Autism', 'Depression', 'LGBTQ+ Identities', 'Life Transitions', 'PTSD', 'Parenting', 'Relationships', 'Teens'],
     insurance: ['Aetna', 'BCBS', 'Cigna', 'Molina-Medicaid', 'Premera', 'Private Pay', 'Regence'],
+    topSpecialties:['ADHD', 'Autism', 'LGBTQ+ Identities', 'Couples'],
     location: ['Telehealth'],
     services: ['Individual', 'Couples', 'Family'],
     gender: ['Female'],
-    acceptingClients: true,
+    acceptingClients: 'yes',
     image: exampleImg,
   },
 
@@ -214,18 +221,31 @@ const Providers = () => {
               <p className="location">{t.location.join(', ')}</p>
 
               <p className="clients">
-                <span className="icon" style={{ color: t.acceptingClients ? 'green' : 'crimson' }}>
-                  {t.acceptingClients ? '✔' : '✖'}
-                </span>{' '}
-                {t.acceptingClients ? 'Accepting New Clients' : 'Not Accepting New Clients'}
+                {t.acceptingClients?.toLowerCase() === 'yes' && (
+                  <span className="icon available">
+                  <FaCalendarCheck /> Accepting New Clients
+                </span>
+                )}
+                {t.acceptingClients?.toLowerCase() === 'assessments only' && (
+                  <span className="icon available">
+                    <TbReportSearch /> Accepting for Assessments Only
+                  </span>
+                )}
+                {t.acceptingClients?.toLowerCase() === 'no' && (
+                  <span className="icon not-available">
+                    <FaCalendarTimes /> Not Accepting New Clients
+                  </span>
+                )}
+
               </p>
 
+              {Array.isArray(t.topSpecialties) && t.topSpecialties.length > 0 && (
               <ul className="provider-specialties">
-                {t.specialties.map((tag, j) => (
+                {t.topSpecialties.map((tag, j) => (
                   <li key={j}><span className="dot" /> {tag}</li>
                 ))}
               </ul>
-
+              )}
               <p className="insurance-label">
                 <strong>Insurance:</strong> {t.insurance.join(', ')}
               </p>
