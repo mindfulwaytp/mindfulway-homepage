@@ -228,7 +228,7 @@ const Providers = () => {
                 )}
                 {t.acceptingClients?.toLowerCase() === 'assessments only' && (
                   <span className="icon available">
-                    <TbReportSearch /> Accepting for Assessments Only
+                    <TbReportSearch /> Assessments Only
                   </span>
                 )}
                 {t.acceptingClients?.toLowerCase() === 'no' && (
